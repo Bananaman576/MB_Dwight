@@ -19,7 +19,7 @@ class cubeManipulator{
   void SpinToWin(double, double);
   void makeTheLiftNotSuck(bool);
   Dwight &dwight;
-  TrapezoidalMove &tuve;
+  TrapezoidalMove tuve;
 
  public:
   bool FlipADip(double);
@@ -27,7 +27,7 @@ class cubeManipulator{
   void outputCube();
   void spinCube();
   void Stop();
-  cubeManipulator(Dwight &dwight, TrapezoidalMove &tuve);
+  cubeManipulator(Dwight &dwight);
   void CubeTeleopPeriodic();
-  
+  void Reset();
 };

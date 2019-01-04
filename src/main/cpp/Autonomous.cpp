@@ -5,18 +5,6 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "Autonomous.h"
 
-#include "dwight.h"
-#include <ctre/Phoenix.h>
-class driveTrain {
- private:
-  void DriveAround(double,double);
-  bool m_reverse;
-   Dwight &dwight;
- public:
-  void driveTeleopPeriodic();
-  void driveAutoPeriodic();
-  driveTrain(Dwight &dwight);
- 
-};
+Autonomous::Autonomous(){}

@@ -20,10 +20,41 @@ driveTrain::driveTrain(Dwight &dwight) : dwight(dwight) {
   dwight.leftDrive1->SetInverted(false);
   dwight.leftDrive2->SetInverted(false);
   dwight.leftDrive3->SetInverted(false);
+  m_reverse=false;
 }
 void driveTrain::DriveAround(double leftSpeed, double rightSpeed) {
   dwight.leftDrive1->Set(ControlMode::PercentOutput, leftSpeed);
   dwight.rightDrive1->Set(ControlMode::PercentOutput, rightSpeed);
 }
+
+void driveTrain::driveTeleopPeriodic(){
+double rightSpeed = .5*dwight.m_stick->GetRawAxis(3);
+double leftSpeed = .5*dwight.m_stick->GetRawAxis(1);
+if(dwight.m_stick->GetRawButtonPressed(3)){
+  m_reverse=!m_reverse;
+}
+if(dwight.m_stick->GetRawButton(5)){
+  leftSpeed*=.5;
+  rightSpeed*=.5;
+}
+if(dwight.m_stick->GetRawButton(6)){
+  leftSpeed*=2;
+  rightSpeed*=2;
+}
+if(m_reverse){
+  leftSpeed  *=-1;
+  rightSpeed *=-1;
+}
+DriveAround(leftSpeed,rightSpeed);
+//you're a number
+//left motors are 1
+//right motors are 3
+//maximum overdrive is 6
+//slowboat is 5
+
+}
+
+
+
 
 

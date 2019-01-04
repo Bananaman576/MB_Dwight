@@ -4,18 +4,28 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-#include "Robot.h"
+
 #include <iostream>
 #include <SmartDashboard/SmartDashboard.h>
 #include <TimedRobot.h>
 #include <Joystick.h>
 #include <ctre/Phoenix.h>
+#include "dwight.h"
+#include "driveTrain.h"
+#include "cubeManipulator.h"
 
 
-void Robot::RobotInit() {
-  m_chooser.AddDefault(kAutoNameDefault, kAutoNameDefault);
-  m_chooser.AddObject(kAutoNameCustom, kAutoNameCustom);
-  frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+class Robot : public frc::TimedRobot {
+  Dwight dwight;
+  cubeManipulator cubeManip;
+  driveTrain drive;
+  frc::SendableChooser<std::string> m_chooser;
+  const std::string kAutoNameDefault = "Default";
+  const std::string kAutoNameCustom = "My Auto";
+  std::string m_autoSelected;
+ public:
+  Robot() : drive(dwight), cubeManip(dwight) {
+ 
 }
 
 /**
@@ -26,7 +36,7 @@ void Robot::RobotInit() {
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() {}
+void RobotPeriodic() {}
 
 /**
  * This autonomous (along with the chooser code above) shows how to select
@@ -39,26 +49,23 @@ void Robot::RobotPeriodic() {}
  * if-else structure below with additional strings. If using the SendableChooser
  * make sure to add them to the chooser code above as well.
  */
-void Robot::AutonomousInit() {
+void AutonomousInit() {
 
 }
 
-void Robot::AutonomousPeriodic() {
-  if (m_autoSelected == kAutoNameCustom) {
-    // Custom Auto goes here
-  } else {
-    // Default Auto goes here
-  }
+void AutonomousPeriodic() {
+
 }
 
-void Robot::TeleopInit() {}
+void TeleopInit() {}
 
-void Robot::TeleopPeriodic() {
-  
+void TeleopPeriodic() {
+  cubeManip.CubeTeleopPeriodic();
+  drive.driveTeleopPeriodic();
 }
 
-void Robot::TestPeriodic() {}
-
+void TestPeriodic() {}
+};
 #ifndef RUNNING_FRC_TESTS
 START_ROBOT_CLASS(Robot)
 #endif

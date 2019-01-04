@@ -7,16 +7,10 @@
 
 #pragma once
 
-#include "dwight.h"
-#include <ctre/Phoenix.h>
-class driveTrain {
+
+class Autonomous {
  private:
-  void DriveAround(double,double);
-  bool m_reverse;
-   Dwight &dwight;
+
  public:
-  void driveTeleopPeriodic();
-  void driveAutoPeriodic();
-  driveTrain(Dwight &dwight);
- 
+  Autonomous();
 };
