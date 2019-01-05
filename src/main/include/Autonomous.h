@@ -6,11 +6,21 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+#include "driveTrain.h"
+#include "cubeManipulator.h"
+#include "TrapezoidalMove.h"
 
 
 class Autonomous {
  private:
+  cubeManipulator &cubeManip;
+  driveTrain &drive;
+  TrapezoidalMove tuve;
+  Timer m_timer;
 
+  int m_autoState;
+  int m_moveState;
  public:
-  Autonomous();
+  Autonomous(cubeManipulator &cubeManip, driveTrain &drive);
+  void AutoPeriodic();
 };

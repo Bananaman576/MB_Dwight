@@ -13,18 +13,20 @@
 #include "dwight.h"
 #include "driveTrain.h"
 #include "cubeManipulator.h"
+#include "Autonomous.h"
 
 
 class Robot : public frc::TimedRobot {
   Dwight dwight;
   cubeManipulator cubeManip;
   driveTrain drive;
+  Autonomous auton;
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
  public:
-  Robot() : drive(dwight), cubeManip(dwight) {
+  Robot() : drive(dwight), cubeManip(dwight), auton(cubeManip, drive) {
  
 }
 
@@ -54,7 +56,7 @@ void AutonomousInit() {
 }
 
 void AutonomousPeriodic() {
-
+  auton.AutoPeriodic();
 }
 
 void TeleopInit() {}

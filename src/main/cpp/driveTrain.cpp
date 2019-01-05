@@ -27,6 +27,32 @@ void driveTrain::DriveAround(double leftSpeed, double rightSpeed) {
   dwight.rightDrive1->Set(ControlMode::PercentOutput, rightSpeed);
 }
 
+void driveTrain::driveDistance(double lval, double rval) {
+  lval*=217.299;
+  rval*=217.299;
+  dwight.leftDrive1->Set(ControlMode::Position, lval);
+  dwight.rightDrive1->Set(ControlMode::Position, rval);
+}
+
+void driveTrain::moveReset(){
+  dwight.leftDrive1->SetSelectedSensorPosition(0,0,0);
+  dwight.rightDrive1->SetSelectedSensorPosition(0,0,0);
+  dwight.leftDrive1->Set(ControlMode::Position, 0);
+  dwight.rightDrive1->Set(ControlMode::Position, 0);
+}
+
+void driveTrain::autoPrep(){
+  moveReset();
+  SetPID(dwight.leftDrive1,1,0,0);
+  SetPID(dwight.rightDrive1,1,0,0);
+}
+
+void driveTrain::SetPID(TalonSRX *motor, double p, double i, double d){
+  motor->Config_kP(0,p,0);
+  motor->Config_kI(0,i,0);
+  motor->Config_kD(0,d,0);
+}
+
 void driveTrain::driveTeleopPeriodic(){
 double rightSpeed = .5*dwight.m_stick->GetRawAxis(3);
 double leftSpeed = .5*dwight.m_stick->GetRawAxis(1);

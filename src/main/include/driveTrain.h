@@ -12,11 +12,15 @@
 class driveTrain {
  private:
   void DriveAround(double,double);
+  void SetPID(TalonSRX *motor, double, double, double);
   bool m_reverse;
    Dwight &dwight;
  public:
   void driveTeleopPeriodic();
+  void driveDistance(double, double);
+  void moveReset();
   void driveAutoPeriodic();
+  void autoPrep();
   driveTrain(Dwight &dwight);
  
 };
